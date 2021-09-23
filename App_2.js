@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from "react";
+//dc-
+import { Chart } from "react-google-charts";
 
-export default App;
 
 function App() {
   const [error, setError] = useState(null);
@@ -29,16 +31,43 @@ function App() {
       )
   }, [])
 
+
+  const data = [
+    ["Year", "Sales", "Expenses"],
+    ["2004", 1000, 400],
+    ["2005", 1170, 460],
+    ["2006", 660, 1120],
+    ["2007", 1030, 540]
+  ];
+  const nulldata = [
+  ];
+  const options = {
+    title: "Company Performance",
+    curveType: "function",
+    legend: { position: "bottom" }
+  };
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
     return (
+      <MainScreen title="KUS API">
+        <div className="MyApp">
+          <Chart
+            chartType="LineChart"
+            width="100%"
+            height="200px"
+            data={data}
+            options={options}
+          />
+      </MainScreen>
+
       <ul>
         {api.map(item => (
           <li key={item.id}>
-            {item.SN} {item.SPN1761}
+            {item.ttimestamps} {item.SPN1761}
           </li>
         ))}
       </ul>
